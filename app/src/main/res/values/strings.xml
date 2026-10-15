@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">NoPeek</string>
+    <string name="subtitle">Privacy display por app</string>
+    <string name="credit">Hecho por</string>
+    <string name="brand">vestelar</string>
+    <string name="service_description">Detecta qué app está en primer plano para aplicar el nivel de Privacy display (normal o máximo) que hayas elegido para ella. No lee el contenido de la pantalla.</string>
+
+    <string name="section_status">Estado</string>
+    <string name="level_now">Nivel ahora</string>
+    <string name="level_max">Máximo</string>
+    <string name="level_normal">Normal</string>
+    <string name="level_unknown">Desconocido</string>
+    <string name="enabled">Activo</string>
+    <string name="perm_write">Modificar ajustes del sistema</string>
+    <string name="perm_write_hint">Para cambiar el nivel</string>
+    <string name="perm_service">Servicio de accesibilidad</string>
+    <string name="perm_service_hint">Para saber qué app está abierta</string>
+    <string name="grant">Conceder</string>
+    <string name="granted">✓ Listo</string>
+
+    <string name="section_apps">Apps en máxima</string>
+    <string name="apps_help">One UI decide cuándo se enciende Privacy display. Las apps marcadas lo usarán en máximo; el resto, en normal.</string>
+    <string name="search_hint">Buscar app…</string>
+    <string name="apps_count">%1$d de %2$d</string>
+    <string name="loading_apps">Cargando apps…</string>
+</resources>

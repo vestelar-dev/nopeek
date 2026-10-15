@@ -1,0 +1,15 @@
+# Paquetes generados
+releases/
+*.apk
+
+# Compilacion de Android
+.gradle/
+build/
+local.properties
+
+# Editor
+.vscode/
+
+# Sistema
+Thumbs.db
+.DS_Store

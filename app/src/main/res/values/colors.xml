@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Misma paleta que el icono. -->
+    <color name="bg">#12141A</color>
+    <color name="surface">#1B1E26</color>
+    <color name="surface_high">#232733</color>
+    <color name="line">#2E3340</color>
+    <color name="gold">#DEB04E</color>
+    <color name="gold_dim">#8A6E31</color>
+    <color name="text">#ECEDF1</color>
+    <color name="text_muted">#9AA0AE</color>
+    <color name="danger">#C7503F</color>
+    <color name="on_gold">#14161C</color>
+    <color name="icon_bg">#181A20</color>
+</resources>

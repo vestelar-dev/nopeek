@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Movil visto de frente con un ojo en la pantalla, dentro de un aro. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Aro -->
+    <path
+        android:pathData="M54,22.5a31.5,31.5 0,1 1,0 63a31.5,31.5 0,1 1,0 -63z"
+        android:strokeColor="#DEB04E"
+        android:strokeWidth="2.6" />
+
+    <!-- Movil -->
+    <path
+        android:pathData="M45,33h18a5,5 0,0 1,5 5v32a5,5 0,0 1,-5 5h-18a5,5 0,0 1,-5 -5v-32a5,5 0,0 1,5 -5z"
+        android:strokeColor="#DEB04E"
+        android:strokeWidth="3" />
+    <path
+        android:pathData="M51.5,37.6h5"
+        android:strokeColor="#DEB04E"
+        android:strokeLineCap="round"
+        android:strokeWidth="2" />
+
+    <!-- Ojo -->
+    <path
+        android:pathData="M45.5,54Q54,45 62.5,54Q54,63 45.5,54z"
+        android:strokeColor="#DEB04E"
+        android:strokeLineJoin="round"
+        android:strokeWidth="2.4" />
+    <path
+        android:fillColor="#DEB04E"
+        android:pathData="M54,50.6a3.4,3.4 0,1 1,0 6.8a3.4,3.4 0,1 1,0 -6.8z" />
+</vector>
