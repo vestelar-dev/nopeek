@@ -1,34 +1,38 @@
 # NoPeek
 
-Nivel de Privacy display por app para el Galaxy S26 Ultra.
+Per-app Privacy display level for the Galaxy S26 Ultra.
 
-One UI decide en qué apps se enciende Privacy display, pero el nivel (normal o máximo) es uno solo para todo el sistema. NoPeek lo cambia según la app que esté en primer plano: las apps marcadas van en máximo y el resto en normal.
+One UI decides which apps turn Privacy display on, but the level (normal or maximum) is a single system-wide setting. NoPeek switches it based on the app in the foreground: the apps you mark run at maximum, everything else at normal.
 
-## Cómo funciona
+## Download
 
-- Un servicio de accesibilidad (`LevelService`) recibe los cambios de ventana. Solo cuenta las actividades reales: popups, toasts, el teclado y SystemUI no cambian el nivel.
-- Para cada app escribe `Settings.System.privacy_display_level`: `0` normal, `1` máximo. No toca si Privacy display está encendido; eso sigue siendo cosa de One UI.
-- No lee el contenido de la pantalla ni usa red.
+APKs for each version are in [Releases](https://github.com/vestelar-dev/nopeek/releases).
 
-## Instalación
+## How it works
 
-1. Instalar el APK.
-2. En la app, conceder **Modificar ajustes del sistema** y activar el **servicio de accesibilidad**.
-3. Marcar las apps que deben ir en máximo.
+- An accessibility service (`LevelService`) listens for window changes. Only real activities count: popups, toasts, the keyboard and SystemUI never change the level.
+- For each app it writes `Settings.System.privacy_display_level`: `0` normal, `1` maximum. It does not turn Privacy display on or off; that is still up to One UI.
+- It does not read screen content and has no network access.
 
-## Compilar
+## Setup
+
+1. Install the APK. It is signed with a debug key, so installing from unknown sources must be allowed.
+2. In the app, grant **Modify system settings** and enable the **accessibility service**.
+3. Mark the apps that should use maximum protection.
+
+## Building
 
 ```bash
 ./gradlew :app:assembleRelease   # app/build/outputs/apk/release/app-release.apk
 ```
 
-Necesita el SDK de Android (ruta en `local.properties`) y un JDK 21.
+Requires the Android SDK (path in `local.properties`) and JDK 21.
 
-`targetSdk` se queda en 28 a propósito: es con el que se comprobó en el dispositivo que se puede escribir la clave oculta `privacy_display_level`.
+`targetSdk` stays at 28 on purpose: that is the target with which writing the hidden `privacy_display_level` key was verified on the device.
 
 ## probe/
 
-Herramienta de investigación con la que se encontró la clave. Escanea el framework y las apps de Samsung buscando cadenas relacionadas con Privacy display, vigila los cambios en `Settings` mientras se toca el panel rápido y prueba escrituras. Se compila aparte:
+The research tool used to find that key. It scans the framework and Samsung apps for strings related to Privacy display, watches `Settings` for changes while you toggle the quick panel tile, and tries test writes. It builds separately:
 
 ```bash
 cd probe && ./gradlew :app:assembleRelease
