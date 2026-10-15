@@ -13,6 +13,7 @@ APKs for each version are in [Releases](https://github.com/vestelar-dev/nopeek/r
 - An accessibility service (`LevelService`) listens for window changes. Only real activities count: popups, toasts, the keyboard and SystemUI never change the level.
 - For each app it writes `Settings.System.privacy_display_level`: `0` normal, `1` maximum. It does not turn Privacy display on or off; that is still up to One UI.
 - It does not read screen content and has no network access.
+- The interface follows the phone language: Spanish if it is set to Spanish, English otherwise. On Android 13+ it can also be chosen per app in Settings → Apps → NoPeek → Language.
 
 ## Setup
 

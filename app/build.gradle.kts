@@ -11,8 +11,8 @@ android {
         minSdk = 29
         // Writing privacy_display_level was verified on-device with targetSdk 28.
         targetSdk = 28
-        versionCode = 2
-        versionName = "1.1"
+        versionCode = 3
+        versionName = "1.2"
     }
 
     buildTypes {

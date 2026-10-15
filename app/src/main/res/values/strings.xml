@@ -1,26 +1,27 @@
 <resources>
-    <string name="app_name">NoPeek</string>
-    <string name="subtitle">Privacy display por app</string>
-    <string name="credit">Hecho por</string>
-    <string name="brand">vestelar</string>
-    <string name="service_description">Detecta qué app está en primer plano para aplicar el nivel de Privacy display (normal o máximo) que hayas elegido para ella. No lee el contenido de la pantalla.</string>
+    <!-- English is the default; values-es/ holds the Spanish translation. -->
+    <string name="app_name" translatable="false">NoPeek</string>
+    <string name="subtitle">Privacy display per app</string>
+    <string name="credit">Made by</string>
+    <string name="brand" translatable="false">vestelar</string>
+    <string name="service_description">Detects which app is in the foreground to apply the Privacy display level (normal or maximum) you chose for it. It does not read screen content.</string>
 
-    <string name="section_status">Estado</string>
-    <string name="level_now">Nivel ahora</string>
-    <string name="level_max">Máximo</string>
+    <string name="section_status">Status</string>
+    <string name="level_now">Current level</string>
+    <string name="level_max">Maximum</string>
     <string name="level_normal">Normal</string>
-    <string name="level_unknown">Desconocido</string>
-    <string name="enabled">Activo</string>
-    <string name="perm_write">Modificar ajustes del sistema</string>
-    <string name="perm_write_hint">Para cambiar el nivel</string>
-    <string name="perm_service">Servicio de accesibilidad</string>
-    <string name="perm_service_hint">Para saber qué app está abierta</string>
-    <string name="grant">Conceder</string>
-    <string name="granted">✓ Listo</string>
+    <string name="level_unknown">Unknown</string>
+    <string name="enabled">On</string>
+    <string name="perm_write">Modify system settings</string>
+    <string name="perm_write_hint">To change the level</string>
+    <string name="perm_service">Accessibility service</string>
+    <string name="perm_service_hint">To know which app is open</string>
+    <string name="grant">Grant</string>
+    <string name="granted">✓ Done</string>
 
-    <string name="section_apps">Apps en máxima</string>
-    <string name="apps_help">One UI decide cuándo se enciende Privacy display. Las apps marcadas lo usarán en máximo; el resto, en normal.</string>
-    <string name="search_hint">Buscar app…</string>
-    <string name="apps_count">%1$d de %2$d</string>
-    <string name="loading_apps">Cargando apps…</string>
+    <string name="section_apps">Apps at maximum</string>
+    <string name="apps_help">One UI decides when Privacy display turns on. Marked apps will use it at maximum; the rest, at normal.</string>
+    <string name="search_hint">Search apps…</string>
+    <string name="apps_count">%1$d of %2$d</string>
+    <string name="loading_apps">Loading apps…</string>
 </resources>
