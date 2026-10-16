@@ -38,3 +38,11 @@ The research tool used to find that key. It scans the framework and Samsung apps
 ```bash
 cd probe && ./gradlew :app:assembleRelease
 ```
+
+## License
+
+Copyright 2026 vestelar. Licensed under the [Apache License 2.0](LICENSE).
+
+You may use, modify and redistribute this code, but copies and derived works must keep the copyright notice and the [NOTICE](NOTICE) file, which credits the original author, and must state which files were changed.
+
+NoPeek is not affiliated with or endorsed by Samsung. Galaxy and Privacy display are trademarks of Samsung Electronics.
