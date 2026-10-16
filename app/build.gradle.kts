@@ -15,10 +15,25 @@ android {
         versionName = "1.4"
     }
 
+    // The release key lives outside the repo: its path and passwords come from
+    // ~/.gradle/gradle.properties. Without them (e.g. a fresh clone) release
+    // builds fall back to the debug key so the project still builds anywhere.
+    val keystore = providers.gradleProperty("VESTELAR_KEYSTORE").orNull
+    signingConfigs {
+        if (keystore != null) {
+            create("release") {
+                storeFile = file(keystore)
+                storePassword = providers.gradleProperty("VESTELAR_KEYSTORE_PASSWORD").get()
+                keyAlias = providers.gradleProperty("VESTELAR_KEY_ALIAS").get()
+                keyPassword = providers.gradleProperty("VESTELAR_KEY_PASSWORD").get()
+            }
+        }
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false
-            signingConfig = signingConfigs.getByName("debug")
+            signingConfig = signingConfigs.getByName(if (keystore != null) "release" else "debug")
         }
     }
 

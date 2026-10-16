@@ -46,6 +46,8 @@ NoPeek has no internet permission, collects nothing and stores only the list of 
 
 Requires the Android SDK (path in `local.properties`) and JDK 21. On Windows use `gradlew.bat`.
 
+Release builds are signed with the key set in `~/.gradle/gradle.properties` (`VESTELAR_KEYSTORE`, `VESTELAR_KEYSTORE_PASSWORD`, `VESTELAR_KEY_ALIAS`, `VESTELAR_KEY_PASSWORD`). Without it they fall back to the debug key, so a build of your own will not install over the published APK.
+
 `targetSdk` stays at 28 on purpose: it is the target with which writing the hidden `privacy_display_level` key was verified on the device. It is also why Play Protect calls the app "built for an older version of Android".
 
 ## probe/
