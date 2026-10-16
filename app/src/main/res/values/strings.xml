@@ -6,7 +6,6 @@
     <string name="brand" translatable="false">vestelar</string>
     <string name="service_description">Detects which app is in the foreground to apply the Privacy display level (normal or maximum) you chose for it. It does not read screen content.</string>
 
-    <string name="section_status">Status</string>
     <string name="level_now">Current level</string>
     <string name="level_max">Maximum</string>
     <string name="level_normal">Normal</string>

@@ -9,7 +9,6 @@
     <color name="gold_dim">#8A6E31</color>
     <color name="text">#ECEDF1</color>
     <color name="text_muted">#9AA0AE</color>
-    <color name="danger">#C7503F</color>
     <color name="on_gold">#14161C</color>
     <color name="icon_bg">#181A20</color>
 </resources>

@@ -19,8 +19,6 @@ import java.util.Set;
  */
 public class LevelService extends AccessibilityService {
     private static final String TAG = "NoPeek";
-    static volatile String lastPackage;
-    static volatile int lastAppliedLevel = -1;
 
     private final Map<String, Boolean> activityCache = new HashMap<>();
     private SharedPreferences prefs;
@@ -37,7 +35,6 @@ public class LevelService extends AccessibilityService {
         String pkg = pkgSeq.toString();
         if (isIgnored(pkg) || !isActivity(pkg, clsSeq.toString())) return;
 
-        lastPackage = pkg;
         if (!prefs.getBoolean(Prefs.KEY_ENABLED, true)) return;
         Set<String> maxApps = prefs.getStringSet(Prefs.KEY_MAX_APPS, Prefs.EMPTY);
         apply(maxApps.contains(pkg) ? Prefs.LEVEL_MAX : Prefs.LEVEL_NORMAL);
@@ -49,7 +46,6 @@ public class LevelService extends AccessibilityService {
             if (current != level) {
                 Settings.System.putInt(getContentResolver(), Prefs.SETTING_LEVEL, level);
             }
-            lastAppliedLevel = level;
         } catch (Throwable t) {
             Log.w(TAG, "Cannot write " + Prefs.SETTING_LEVEL, t);
         }

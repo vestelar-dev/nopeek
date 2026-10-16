@@ -1,6 +1,7 @@
 package com.vestelar.nopeek;
 
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -9,6 +10,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.text.Editable;
@@ -72,13 +74,22 @@ public class MainActivity extends Activity {
         writeButton.setOnClickListener(v -> startActivity(new Intent(
                 Settings.ACTION_MANAGE_WRITE_SETTINGS, Uri.parse("package:" + getPackageName()))));
         serviceButton = findViewById(R.id.serviceButton);
-        serviceButton.setOnClickListener(v ->
-                startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS)));
+        serviceButton.setOnClickListener(v -> openAccessibilitySettings());
 
         Switch enabledSwitch = findViewById(R.id.enabled);
         enabledSwitch.setChecked(prefs.getBoolean(Prefs.KEY_ENABLED, true));
-        enabledSwitch.setOnCheckedChangeListener((b, checked) ->
-                prefs.edit().putBoolean(Prefs.KEY_ENABLED, checked).apply());
+        enabledSwitch.setOnCheckedChangeListener((b, checked) -> {
+            prefs.edit().putBoolean(Prefs.KEY_ENABLED, checked).apply();
+            // Switching off must not leave the screen stuck at maximum.
+            if (!checked && Settings.System.canWrite(this)) {
+                try {
+                    Settings.System.putInt(getContentResolver(), Prefs.SETTING_LEVEL, Prefs.LEVEL_NORMAL);
+                } catch (RuntimeException ignored) {
+                    // Same failure the service logs; the switch still turns the service off.
+                }
+            }
+            updateStatus();
+        });
 
         EditText search = findViewById(R.id.search);
         search.addTextChangedListener(new TextWatcher() {
@@ -121,6 +132,25 @@ public class MainActivity extends Activity {
         button.setText(granted ? R.string.granted : R.string.grant);
         button.setBackgroundResource(granted ? R.drawable.btn_done : R.drawable.btn_primary);
         button.setTextColor(getColor(granted ? R.color.gold : R.color.on_gold));
+    }
+
+    /**
+     * Straight to this service's page where the Settings app supports it (hidden action,
+     * not in the public SDK), otherwise the accessibility list.
+     */
+    private void openAccessibilitySettings() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            Intent details = new Intent("android.settings.ACCESSIBILITY_DETAILS_SETTINGS")
+                    .putExtra(Intent.EXTRA_COMPONENT_NAME,
+                            new ComponentName(this, LevelService.class).flattenToString());
+            try {
+                startActivity(details);
+                return;
+            } catch (ActivityNotFoundException ignored) {
+                // Fall through to the generic list.
+            }
+        }
+        startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS));
     }
 
     private boolean isServiceEnabled() {

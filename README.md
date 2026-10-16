@@ -8,18 +8,35 @@ One UI decides which apps turn Privacy display on, but the level (normal or maxi
 
 APKs for each version are in [Releases](https://github.com/vestelar-dev/nopeek/releases).
 
-## How it works
+## Requirements
 
-- An accessibility service (`LevelService`) listens for window changes. Only real activities count: popups, toasts, the keyboard and SystemUI never change the level.
-- For each app it writes `Settings.System.privacy_display_level`: `0` normal, `1` maximum. It does not turn Privacy display on or off; that is still up to One UI.
-- It does not read screen content and has no network access.
-- The interface follows the phone language: Spanish if it is set to Spanish, English otherwise. On Android 13+ it can also be chosen per app in Settings → Apps → NoPeek → Language.
+- A Galaxy S26 Ultra, the only phone with the Privacy display hardware.
+- Privacy display set up in One UI for the apps where you want it. NoPeek only chooses the level; it never turns Privacy display on or off.
 
 ## Setup
 
-1. Install the APK. It is signed with a debug key, so installing from unknown sources must be allowed.
-2. In the app, grant **Modify system settings** and enable the **accessibility service**.
-3. Mark the apps that should use maximum protection.
+1. **Install the APK.** Android asks to allow installing from your browser or file manager. Google Play Protect may warn that the app is unknown or built for an older version of Android; tap *More details → Install anyway*.
+2. **Grant *Modify system settings*.** In NoPeek, tap **Grant** next to it and turn the switch on.
+3. **Enable the accessibility service.** Tap **Grant** next to it and turn NoPeek on.
+   If the switch is greyed out ("Restricted setting"), Android is blocking it because the app was not installed from a store. Go to *Settings → Apps → NoPeek*, open the **⋮** menu, choose **Allow restricted settings**, and try again.
+4. **Mark the apps** that should use maximum. Tapping a row toggles it; marked apps are listed first.
+
+The **On** switch pauses NoPeek without uninstalling it. Turning it off sets the level back to normal.
+
+## Permissions
+
+| Permission | Why |
+|---|---|
+| Modify system settings | To write the Privacy display level (`Settings.System.privacy_display_level`: `0` normal, `1` maximum). |
+| Accessibility service | To know which app is in the foreground. It only receives window-change events: it cannot read screen content (`canRetrieveWindowContent="false"`). |
+
+NoPeek has no internet permission, collects nothing and stores only the list of marked apps, on the device.
+
+## How it works
+
+- `LevelService` listens for window changes. Only real activities count: popups, toasts, the keyboard and the system UI never change the level.
+- For each app it writes `privacy_display_level`, and only when the value actually changes.
+- The interface follows the phone language: Spanish if it is set to Spanish, English otherwise. On Android 13+ it can also be chosen per app in *Settings → Apps → NoPeek → Language*.
 
 ## Building
 
@@ -27,9 +44,9 @@ APKs for each version are in [Releases](https://github.com/vestelar-dev/nopeek/r
 ./gradlew :app:assembleRelease   # app/build/outputs/apk/release/app-release.apk
 ```
 
-Requires the Android SDK (path in `local.properties`) and JDK 21.
+Requires the Android SDK (path in `local.properties`) and JDK 21. On Windows use `gradlew.bat`.
 
-`targetSdk` stays at 28 on purpose: that is the target with which writing the hidden `privacy_display_level` key was verified on the device.
+`targetSdk` stays at 28 on purpose: it is the target with which writing the hidden `privacy_display_level` key was verified on the device. It is also why Play Protect calls the app "built for an older version of Android".
 
 ## probe/
 

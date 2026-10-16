@@ -5,4 +5,5 @@
     android:accessibilityFlags="flagDefault"
     android:canRetrieveWindowContent="false"
     android:description="@string/service_description"
-    android:notificationTimeout="100" />
+    android:notificationTimeout="100"
+    android:settingsActivity="com.vestelar.nopeek.MainActivity" />
