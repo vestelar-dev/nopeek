@@ -19,7 +19,8 @@ APKs for each version are in [Releases](https://github.com/vestelar-dev/nopeek/r
 2. **Grant *Modify system settings*.** In NoPeek, tap **Grant** next to it and turn the switch on.
 3. **Enable the accessibility service.** Tap **Grant** next to it and turn NoPeek on.
    If the switch is greyed out ("Restricted setting"), Android is blocking it because the app was not installed from a store. Go to *Settings → Apps → NoPeek*, open the **⋮** menu, choose **Allow restricted settings**, and try again.
-4. **Mark the apps** that should use maximum. Tapping a row toggles it; marked apps are listed first.
+4. **Turn off battery optimization.** Tap **Grant** next to *No battery optimization* and allow it, so Android does not stop NoPeek in the background.
+5. **Mark the apps** that should use maximum. Tapping a row toggles it; marked apps are listed first.
 
 The **On** switch pauses NoPeek without uninstalling it. Turning it off sets the level back to normal.
 
@@ -29,6 +30,7 @@ The **On** switch pauses NoPeek without uninstalling it. Turning it off sets the
 |---|---|
 | Modify system settings | To write the Privacy display level (`Settings.System.privacy_display_level`: `0` normal, `1` maximum). |
 | Accessibility service | To know which app is in the foreground. It only receives window-change events: it cannot read screen content (`canRetrieveWindowContent="false"`). |
+| Ignore battery optimizations | So Android does not put NoPeek to sleep and the level keeps following the app in the foreground. |
 
 NoPeek has no internet permission, collects nothing and stores only the list of marked apps, on the device.
 

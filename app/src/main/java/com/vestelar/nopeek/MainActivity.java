@@ -12,6 +12,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.PowerManager;
 import android.provider.Settings;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -59,6 +60,11 @@ public class MainActivity extends Activity {
     private ListView list;
     private Button writeButton;
     private Button serviceButton;
+    private Button batteryButton;
+    private View permSummary;
+    private View permRows;
+    private TextView permChevron;
+    private boolean permsExpanded;
     private String filter = "";
 
     @Override protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +83,15 @@ public class MainActivity extends Activity {
                 Settings.ACTION_MANAGE_WRITE_SETTINGS, Uri.parse("package:" + getPackageName()))));
         serviceButton = findViewById(R.id.serviceButton);
         serviceButton.setOnClickListener(v -> openAccessibilitySettings());
+        batteryButton = findViewById(R.id.batteryButton);
+        batteryButton.setOnClickListener(v -> openBatterySettings());
+        permSummary = findViewById(R.id.permSummary);
+        permRows = findViewById(R.id.permRows);
+        permChevron = findViewById(R.id.permChevron);
+        permSummary.setOnClickListener(v -> {
+            permsExpanded = !permsExpanded;
+            updateStatus();
+        });
 
         Switch enabledSwitch = findViewById(R.id.enabled);
         enabledSwitch.setChecked(prefs.getBoolean(Prefs.KEY_ENABLED, true));
@@ -144,8 +159,18 @@ public class MainActivity extends Activity {
     }
 
     private void updateStatus() {
-        styleGrantButton(writeButton, Settings.System.canWrite(this));
-        styleGrantButton(serviceButton, isServiceEnabled());
+        boolean write = Settings.System.canWrite(this);
+        boolean service = isServiceEnabled();
+        boolean battery = isIgnoringBatteryOptimizations();
+        styleGrantButton(writeButton, write);
+        styleGrantButton(serviceButton, service);
+        styleGrantButton(batteryButton, battery);
+
+        // Missing permissions always stay in sight; once all are granted they fold away.
+        boolean allGranted = write && service && battery;
+        permSummary.setVisibility(allGranted ? View.VISIBLE : View.GONE);
+        permRows.setVisibility(!allGranted || permsExpanded ? View.VISIBLE : View.GONE);
+        permChevron.setText(permsExpanded ? R.string.hide : R.string.show);
         int level = Settings.System.getInt(getContentResolver(), Prefs.SETTING_LEVEL, -1);
         levelValue.setText(level == Prefs.LEVEL_MAX ? R.string.level_max
                 : level == Prefs.LEVEL_NORMAL ? R.string.level_normal : R.string.level_unknown);
@@ -175,6 +200,28 @@ public class MainActivity extends Activity {
             }
         }
         startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS));
+    }
+
+    private boolean isIgnoringBatteryOptimizations() {
+        PowerManager pm = getSystemService(PowerManager.class);
+        return pm != null && pm.isIgnoringBatteryOptimizations(getPackageName());
+    }
+
+    /**
+     * Asks for the exemption directly; once granted (or if the dialog is unavailable)
+     * opens the battery optimization list so it can be reviewed or undone.
+     */
+    private void openBatterySettings() {
+        if (!isIgnoringBatteryOptimizations()) {
+            try {
+                startActivity(new Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS,
+                        Uri.parse("package:" + getPackageName())));
+                return;
+            } catch (ActivityNotFoundException | SecurityException ignored) {
+                // Fall through to the list.
+            }
+        }
+        startActivity(new Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS));
     }
 
     private boolean isServiceEnabled() {

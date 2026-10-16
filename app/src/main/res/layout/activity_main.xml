@@ -133,46 +133,102 @@
             android:layout_marginTop="14dp"
             android:layout_marginBottom="6dp" />
 
+        <!-- With every permission granted the rows fold into this line. -->
         <LinearLayout
+            android:id="@+id/permSummary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:minHeight="40dp"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:paddingTop="6dp"
-            android:paddingBottom="6dp">
+            android:background="?android:attr/selectableItemBackground"
+            android:visibility="gone">
 
-            <LinearLayout
+            <TextView
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:text="@string/perms_all_granted"
+                android:textColor="@color/gold"
+                android:textSize="14sp" />
 
-                <TextView style="@style/RowTitle" android:text="@string/perm_write" />
-                <TextView style="@style/RowHint" android:text="@string/perm_write_hint" />
-            </LinearLayout>
-
-            <Button android:id="@+id/writeButton" style="@style/PermButton" />
+            <TextView
+                android:id="@+id/permChevron"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/show"
+                android:textColor="@color/text_muted"
+                android:textSize="13sp" />
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/permRows"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:paddingTop="6dp"
-            android:paddingBottom="6dp">
+            android:orientation="vertical">
 
             <LinearLayout
-                android:layout_width="0dp"
-                android:layout_weight="1"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingTop="6dp"
+                android:paddingBottom="6dp">
 
-                <TextView style="@style/RowTitle" android:text="@string/perm_service" />
-                <TextView style="@style/RowHint" android:text="@string/perm_service_hint" />
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView style="@style/RowTitle" android:text="@string/perm_write" />
+                    <TextView style="@style/RowHint" android:text="@string/perm_write_hint" />
+                </LinearLayout>
+
+                <Button android:id="@+id/writeButton" style="@style/PermButton" />
             </LinearLayout>
 
-            <Button android:id="@+id/serviceButton" style="@style/PermButton" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingTop="6dp"
+                android:paddingBottom="6dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView style="@style/RowTitle" android:text="@string/perm_service" />
+                    <TextView style="@style/RowHint" android:text="@string/perm_service_hint" />
+                </LinearLayout>
+
+                <Button android:id="@+id/serviceButton" style="@style/PermButton" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingTop="6dp"
+                android:paddingBottom="6dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView style="@style/RowTitle" android:text="@string/perm_battery" />
+                    <TextView style="@style/RowHint" android:text="@string/perm_battery_hint" />
+                </LinearLayout>
+
+                <Button android:id="@+id/batteryButton" style="@style/PermButton" />
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 

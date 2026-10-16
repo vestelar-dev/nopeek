@@ -12,6 +12,11 @@
     <string name="perm_write_hint">Para cambiar el nivel</string>
     <string name="perm_service">Servicio de accesibilidad</string>
     <string name="perm_service_hint">Para saber qué app está abierta</string>
+    <string name="perm_battery">Sin optimizar batería</string>
+    <string name="perm_battery_hint">Para que Android no la detenga</string>
+    <string name="perms_all_granted">✓ Permisos concedidos</string>
+    <string name="show">Ver ⌄</string>
+    <string name="hide">Ocultar ⌃</string>
     <string name="grant">Conceder</string>
     <string name="granted">✓ Listo</string>
 

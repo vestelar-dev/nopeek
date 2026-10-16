@@ -11,8 +11,8 @@ android {
         minSdk = 29
         // Writing privacy_display_level with targetSdk 36 was verified on a Galaxy S26 Ultra.
         targetSdk = 36
-        versionCode = 6
-        versionName = "1.5"
+        versionCode = 7
+        versionName = "1.6"
     }
 
     // The release key lives outside the repo: its path and passwords come from
