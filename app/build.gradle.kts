@@ -9,10 +9,10 @@ android {
     defaultConfig {
         applicationId = "com.vestelar.nopeek"
         minSdk = 29
-        // Writing privacy_display_level was verified on-device with targetSdk 28.
-        targetSdk = 28
-        versionCode = 5
-        versionName = "1.4"
+        // Writing privacy_display_level with targetSdk 36 was verified on a Galaxy S26 Ultra.
+        targetSdk = 36
+        versionCode = 6
+        versionName = "1.5"
     }
 
     // The release key lives outside the repo: its path and passwords come from
@@ -35,10 +35,6 @@ android {
             isMinifyEnabled = false
             signingConfig = signingConfigs.getByName(if (keystore != null) "release" else "debug")
         }
-    }
-
-    lint {
-        disable += "ExpiredTargetSdkVersion"
     }
 
     compileOptions {

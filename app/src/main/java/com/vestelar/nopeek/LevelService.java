@@ -51,7 +51,11 @@ public class LevelService extends AccessibilityService {
         }
     }
 
-    /** Popups, toasts and dialogs also fire window events; only real activities count. */
+    /**
+     * Popups, toasts and dialogs also fire window events; only real activities count.
+     * Apps hidden by package visibility (no launcher icon) also land here as "not an
+     * activity" and leave the level untouched.
+     */
     private boolean isActivity(String pkg, String cls) {
         String key = pkg + "/" + cls;
         Boolean cached = activityCache.get(key);

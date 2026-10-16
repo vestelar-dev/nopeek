@@ -17,6 +17,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowInsets;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -63,6 +64,7 @@ public class MainActivity extends Activity {
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        applyWindowInsets();
         prefs = Prefs.get(this);
 
         levelValue = findViewById(R.id.levelValue);
@@ -118,6 +120,27 @@ public class MainActivity extends Activity {
     @Override protected void onResume() {
         super.onResume();
         updateStatus();
+    }
+
+    /** targetSdk 35+ draws behind the system bars; keep the layout's own padding on top. */
+    private void applyWindowInsets() {
+        View root = findViewById(R.id.root);
+        int l = root.getPaddingLeft(), t = root.getPaddingTop();
+        int r = root.getPaddingRight(), b = root.getPaddingBottom();
+        root.setOnApplyWindowInsetsListener((view, insets) -> {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                android.graphics.Insets bars = insets.getInsets(WindowInsets.Type.systemBars()
+                        | WindowInsets.Type.displayCutout() | WindowInsets.Type.ime());
+                view.setPadding(l + bars.left, t + bars.top, r + bars.right, b + bars.bottom);
+            } else {
+                view.setPadding(l + insets.getSystemWindowInsetLeft(),
+                        t + insets.getSystemWindowInsetTop(),
+                        r + insets.getSystemWindowInsetRight(),
+                        b + insets.getSystemWindowInsetBottom());
+            }
+            return insets;
+        });
+        root.requestApplyInsets();
     }
 
     private void updateStatus() {

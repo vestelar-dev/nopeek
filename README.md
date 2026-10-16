@@ -15,7 +15,7 @@ APKs for each version are in [Releases](https://github.com/vestelar-dev/nopeek/r
 
 ## Setup
 
-1. **Install the APK.** Android asks to allow installing from your browser or file manager. Google Play Protect may warn that the app is unknown or built for an older version of Android; tap *More details → Install anyway*.
+1. **Install the APK.** Android asks to allow installing from your browser or file manager. Google Play Protect may warn that the app is unknown; tap *More details → Install anyway*.
 2. **Grant *Modify system settings*.** In NoPeek, tap **Grant** next to it and turn the switch on.
 3. **Enable the accessibility service.** Tap **Grant** next to it and turn NoPeek on.
    If the switch is greyed out ("Restricted setting"), Android is blocking it because the app was not installed from a store. Go to *Settings → Apps → NoPeek*, open the **⋮** menu, choose **Allow restricted settings**, and try again.
@@ -47,8 +47,6 @@ NoPeek has no internet permission, collects nothing and stores only the list of 
 Requires the Android SDK (path in `local.properties`) and JDK 21. On Windows use `gradlew.bat`.
 
 Release builds are signed with the key set in `~/.gradle/gradle.properties` (`VESTELAR_KEYSTORE`, `VESTELAR_KEYSTORE_PASSWORD`, `VESTELAR_KEY_ALIAS`, `VESTELAR_KEY_PASSWORD`). Without it they fall back to the debug key, so a build of your own will not install over the published APK.
-
-`targetSdk` stays at 28 on purpose: it is the target with which writing the hidden `privacy_display_level` key was verified on the device. It is also why Play Protect calls the app "built for an older version of Android".
 
 ## probe/
 

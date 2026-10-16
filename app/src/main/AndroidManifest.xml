@@ -3,6 +3,14 @@
 
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
 
+    <!-- Since targetSdk 30 other apps are hidden unless declared: launcher apps are enough. -->
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent>
+    </queries>
+
     <application
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
