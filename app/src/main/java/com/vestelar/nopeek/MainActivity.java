@@ -135,8 +135,9 @@ public class MainActivity extends Activity {
     }
 
     /**
-     * Straight to this service's page where the Settings app supports it (hidden action,
-     * not in the public SDK), otherwise the accessibility list.
+     * Straight to this service's page where the Settings app allows it, otherwise the
+     * accessibility list. The details action is hidden and may require a system-only
+     * permission, so a SecurityException is as expected as a missing activity.
      */
     private void openAccessibilitySettings() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
@@ -146,7 +147,7 @@ public class MainActivity extends Activity {
             try {
                 startActivity(details);
                 return;
-            } catch (ActivityNotFoundException ignored) {
+            } catch (ActivityNotFoundException | SecurityException ignored) {
                 // Fall through to the generic list.
             }
         }
